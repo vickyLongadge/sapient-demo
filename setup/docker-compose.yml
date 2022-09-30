@@ -1,0 +1,27 @@
+version: "3.7"
+
+networks:
+  itpnw:
+    external: true
+  elastic:
+    external: true
+    
+services:
+  mongo_db:
+    container_name: itpmongo_container
+    image: mongo:latest
+    ports:
+    - 27017:27017
+    networks:
+    - itpnw 
+
+  keycloak:
+    container_name: itpkeycloak_container
+    image: quay.io/keycloak/keycloak:16.1.1
+    ports:
+     - 8080:8080
+    networks:
+     - itpnw 
+    environment: 
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
