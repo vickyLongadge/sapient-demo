@@ -1,0 +1,30 @@
+version: "3.7"
+
+networks:
+  itpnw:
+    external: true
+  elastic:
+    external: true
+    
+services:
+  itp-api:
+    image: itpp/itp-api:latest
+    # image: vicky777vik/sapientdemo:v1
+    build: .
+    ports:
+      - "8085:8085"
+    networks:
+      - itpnw
+    environment:
+      # SPRING.DATA.MONGODB.AUTHENTICATION-DATABASE: admin
+      # SPRING.DATA.MONGODB.USERNAME: mongoadmin
+      # SPRING.DATA.MONGODB.PASSWORD: secret
+      # SPRING.DATA.MONGODB.DATABASE: itp-db
+      # SPRING.DATA.MONGODB.PORT: 27017
+      # SPRING.DATA.MONGODB.HOST: itpmongo_container
+      KEYCLOAK.AUTH-SERVER-URL: http://itpkeycloak_container:8080/auth
+      KEYCLOAK.REALM: master
+      KEYCLOAK.RESOURCE: itp-app
+      KEYCLOAK.PUBLIC-CLIENT: 'true'
+      KEYCLOAK.CORS: 'true'
+      KEYCLOAK.PRINCIPAL-ATTRIBUTE: preferred_username
