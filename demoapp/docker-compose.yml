@@ -8,7 +8,7 @@ networks:
     
 services:
   itp-api:
-    image: itpp/itp-api:latest
+    #image: itpp/itp-api:latest
     # image: vicky777vik/sapientdemo:v1
     build: .
     ports:
